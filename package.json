@@ -11,8 +11,9 @@
     }
   },
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build && electron-builder",
+    "dev": "vite",
+    "lint": "eslint src/ electron/",
     "preview": "vite preview",
     "e2e": "npx playwright test"
   },
