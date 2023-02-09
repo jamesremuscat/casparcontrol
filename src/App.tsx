@@ -1,14 +1,19 @@
 import nodeLogo from "./assets/node.svg";
 import { useState } from 'react';
+import styled from "styled-components/macro";
 
 // eslint-disable-next-line no-console
 console.log('[App.tsx]', `Hello world from Electron ${process.versions.electron}!`);
+
+const AppContainer = styled.div`
+  display: flex;
+`;
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="App">
+    <AppContainer>
       <div>
         <a
           href="https://github.com/electron-vite/electron-vite-react"
@@ -38,7 +43,7 @@ function App() {
           src={nodeLogo}
           style={{ width: "5em" }} />
       </div>
-    </div>
+    </AppContainer>
   );
 }
 

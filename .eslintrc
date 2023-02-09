@@ -11,6 +11,18 @@
   "root": true,
   "rules": {
     "no-console": "warn",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [{
+          "name": "styled-components",
+          "message": "Please import from styled-components/macro."
+        }],
+        "patterns": [
+          "!styled-components/macro"
+        ]
+      }
+    ],
     "no-unused-expressions": "warn",
     "object-curly-spacing": ["warn", "always"],
     "semi": "warn",
