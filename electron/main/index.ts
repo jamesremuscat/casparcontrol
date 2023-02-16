@@ -1,5 +1,5 @@
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
-import { release } from 'node:os';
+import { app, BrowserWindow, session, shell, ipcMain } from 'electron';
+import { homedir, release } from 'node:os';
 import { join } from 'node:path';
 
 // The built directory structure
@@ -74,7 +74,23 @@ async function createWindow() {
   });
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(
+  () => {
+    createWindow();
+    if (process.env.NODE_ENV === 'development') {
+      // Ick!
+      // https://github.com/electron/electron/issues/36545
+      // https://polypane.app/docs/downgrading-react-devtools/
+      session.defaultSession.loadExtension(
+        join(
+          homedir(),
+          '.config/casparcontrol/Extensions/fmkadmapgofadopljbjfkapdkoienihi/'
+        ),
+        { allowFileAccess: true }
+      );
+    }
+  }
+);
 
 app.on('window-all-closed', () => {
   win = null;

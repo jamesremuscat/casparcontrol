@@ -1,49 +1,45 @@
-import nodeLogo from "./assets/node.svg";
-import { useState } from 'react';
-import styled from "styled-components/macro";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components/macro";
+import { ServerBrowser } from "./modules/serverBrowser";
+import { theme } from "./theme";
 
 // eslint-disable-next-line no-console
 console.log('[App.tsx]', `Hello world from Electron ${process.versions.electron}!`);
 
 const AppContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+
+  background-color: ${ props => props.theme.backgroundColor };
+`;
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    margin: 0;
+    padding: 0;
+
+    font-family: sans-serif;
+  }
 `;
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
-    <AppContainer>
-      <div>
-        <a
-          href="https://github.com/electron-vite/electron-vite-react"
-          rel="noreferrer"
-          target="_blank">
-          <img
-            alt="Electron + Vite logo"
-            className="logo"
-            src="./electron-vite.svg" />
-        </a>
-      </div>
-      <h1>Electron + Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Electron + Vite logo to learn more
-      </p>
-      <div className="flex-center">
-        Place static files into the<code>/public</code> folder <img
-          alt="Node logo"
-          src={nodeLogo}
-          style={{ width: "5em" }} />
-      </div>
-    </AppContainer>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <AppContainer>
+        <ServerBrowser />
+        <div>
+          Playlist
+        </div>
+        <div>
+          Features
+        </div>
+      </AppContainer>
+    </ThemeProvider>
   );
 }
 
