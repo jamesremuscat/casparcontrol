@@ -22,7 +22,6 @@ export const CasparConnectionProvider = ({ children }: PropTypes) => {
       myConnection.on('connect', () => setConnectionState(ConnectionState.CONNECTED));
       myConnection.on('disconnect', () => setConnectionState(ConnectionState.NOT_CONNECTED));
       myConnection.on('error', () => setConnectionState(ConnectionState.ERRORED));
-
       connection.current = myConnection;
 
     },

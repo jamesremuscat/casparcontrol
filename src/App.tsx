@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components/macro";
+import { CasparConnectionProvider } from "./modules/caspar";
 import { ServerBrowser } from "./modules/serverBrowser";
 import { theme } from "./theme";
 
@@ -30,15 +31,17 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <AppContainer>
-        <ServerBrowser />
-        <div>
-          Playlist
-        </div>
-        <div>
-          Features
-        </div>
-      </AppContainer>
+      <CasparConnectionProvider>
+        <AppContainer>
+          <ServerBrowser />
+          <div>
+            Playlist
+          </div>
+          <div>
+            Features
+          </div>
+        </AppContainer>
+      </CasparConnectionProvider>
     </ThemeProvider>
   );
 }
