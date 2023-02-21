@@ -1,5 +1,5 @@
 import { Input } from '@/components/Input';
-import { ConnectionState, useCaspar } from '@/modules/caspar';
+import { useCaspar } from '@/modules/caspar';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components/macro';
 
@@ -17,20 +17,16 @@ export const ServerBrowser = () => {
 
   const doConnect = useCallback(
     () => {
-      if (caspar.connectionState !== ConnectionState.CONNECTED) {
-        caspar.connect(serverAddress);
+      if (!caspar.connected) {
+        caspar.connect({ host: serverAddress });
       }
     },
     [caspar, serverAddress]
   );
 
-  const cls = async () => {
-    const c = await caspar.connection.cls({ subDirectory: '' });
-    console.log(c);
-    const r = await c.request;
-    console.log(r);
-    console.log(r.data);
-  }
+  const cls = () => {
+    caspar.refreshMedia();
+  };
 
   return (
     <Container>
@@ -40,13 +36,13 @@ export const ServerBrowser = () => {
         value={serverAddress}
       />
       <button
-        disabled={caspar.connectionState === ConnectionState.CONNECTED || serverAddress.length === 0}
+        disabled={caspar.connected || serverAddress.length === 0}
         onClick={doConnect}
       >
         Connect
       </button>
       <button
-        disabled={caspar.connectionState !== ConnectionState.CONNECTED}
+        disabled={!caspar.connected}
         onClick={cls}
       >
         cls
