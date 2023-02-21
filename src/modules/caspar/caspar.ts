@@ -1,10 +1,9 @@
 import { CasparCG } from 'casparcg-connection';
-import { useEffect } from 'react';
 import { create } from 'zustand';
 import { ConnectParams, State } from './state';
 
 
-const useCasparState = create<State>()(
+export const useCaspar = create<State>()(
   (set, get) => ({
 
     connection: null,
@@ -43,20 +42,3 @@ const useCasparState = create<State>()(
     }
   })
 );
-
-export const useCaspar = (): State => {
-
-  const state = useCasparState();
-
-  useEffect(
-    () => () => {
-      if (state.connected) {
-        state.disconnect();
-      }
-    },
-    [state]
-  );
-
-  return state;
-
-};

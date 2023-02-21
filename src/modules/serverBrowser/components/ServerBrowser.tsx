@@ -2,18 +2,30 @@ import { Input } from '@/components/Input';
 import { useCaspar } from '@/modules/caspar';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components/macro';
+import { shallow } from 'zustand/shallow';
+import { MediaList } from './MediaList';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
 
   padding: 0.5em;
+
+  min-height: 0;
 `;
 
 export const ServerBrowser = () => {
 
   const [serverAddress, setServerAddress] = useState<string>('');
-  const caspar = useCaspar();
+  const caspar = useCaspar(
+    (state) => ({
+      connect: state.connect,
+      connected: state.connected,
+      count: state.media.length,
+      refreshMedia: state.refreshMedia
+    }),
+    shallow
+  );
 
   const doConnect = useCallback(
     () => {
@@ -45,8 +57,10 @@ export const ServerBrowser = () => {
         disabled={!caspar.connected}
         onClick={cls}
       >
-        cls
+        Refresh
       </button>
+      <MediaList />
+      {caspar.count} item(s)
     </Container>
   );
 };

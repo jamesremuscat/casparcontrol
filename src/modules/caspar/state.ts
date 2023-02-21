@@ -16,7 +16,7 @@ export interface ConnectParams {
   port?: number
 }
 
-enum MediaType {
+export enum MediaType {
   AUDIO = 'AUDIO',
   MOVIE = 'MOVIE',
   STILL = 'STILL'
