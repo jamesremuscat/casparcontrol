@@ -1,6 +1,6 @@
-import { MediaItem, MediaType, useCaspar } from "@/modules/caspar";
-import { useMemo } from "react";
-import styled from "styled-components/macro";
+import { MediaItem, MediaType, useCaspar } from '@/modules/caspar';
+import { useMemo } from 'react';
+import styled from 'styled-components/macro';
 
 const Container = styled.div`
   min-height: 0;

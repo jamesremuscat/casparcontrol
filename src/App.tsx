@@ -1,6 +1,6 @@
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components/macro";
-import { ServerBrowser } from "./modules/serverBrowser";
-import { theme } from "./theme";
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components/macro';
+import { ServerBrowser } from './modules/serverBrowser';
+import { theme } from './theme';
 
 // eslint-disable-next-line no-console
 console.log('[App.tsx]', `Hello world from Electron ${process.versions.electron}!`);
