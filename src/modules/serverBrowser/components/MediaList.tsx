@@ -1,61 +1,51 @@
-import { MediaItem, MediaType, useCaspar } from '@/modules/caspar';
-import { useMemo } from 'react';
+import { MediaItem, useCaspar } from '@/modules/caspar';
+import { useMemo, useState } from 'react';
 import styled from 'styled-components/macro';
+import { FilterOption, FilterOptions, TypeFilters } from './TypeFilters';
 
 const Container = styled.div`
+  display: flex;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+`;
+
+const MediaPane = styled.div`
   min-height: 0;
   overflow-y: scroll;
+  flex-grow: 1;
+
+  padding: 0.25em;
 `;
+
 
 export const MediaList = () => {
 
   const media = useCaspar(state => state.media);
+  const [filter, setFilter] = useState<FilterOption>(FilterOptions.ALL);
 
-  const mediaByType = useMemo<Record<MediaType, MediaItem[]>>(
+  const filteredMedia = useMemo<MediaItem[]>(
     () => {
-      const sorted = {
-        [MediaType.AUDIO]: [] as MediaItem[],
-        [MediaType.MOVIE]: [] as MediaItem[],
-        [MediaType.STILL]: [] as MediaItem[],
-      };
-
-      media.forEach(
-        m => {
-          sorted[m.type].push(m);
-        }
-      );
-
-      return sorted;
+      return media.filter(filter.filter);
     },
-    [media]
+    [filter, media]
   );
 
   return (
     <Container>
-      <h4>Audio</h4>
-      {
-        mediaByType[MediaType.AUDIO].map(
-          m => (
-            <li key={m.clip}>{m.clip}</li>
+      <TypeFilters
+        filter={filter}
+        setFilter={setFilter}
+      />
+      <MediaPane>
+        {
+          filteredMedia.map(
+            m => (
+              <li key={m.clip}>{m.clip}</li>
+            )
           )
-        )
-      }
-      <h4>Video</h4>
-      {
-        mediaByType[MediaType.MOVIE].map(
-          m => (
-            <li key={m.clip}>{m.clip}</li>
-          )
-        )
-      }
-      <h4>Still</h4>
-      {
-        mediaByType[MediaType.MOVIE].map(
-          m => (
-            <li key={m.clip}>{m.clip}</li>
-          )
-        )
-      }
+        }
+      </MediaPane>
     </Container>
   );
 };
