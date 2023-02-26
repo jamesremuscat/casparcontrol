@@ -38,13 +38,15 @@ export const MediaList = () => {
         setFilter={setFilter}
       />
       <MediaPane>
-        {
-          filteredMedia.map(
-            m => (
-              <li key={m.clip}>{m.clip}</li>
+        <ul>
+          {
+            filteredMedia.map(
+              m => (
+                <li key={m.clip}>{m.clip}</li>
+              )
             )
-          )
-        }
+          }
+        </ul>
       </MediaPane>
     </Container>
   );
