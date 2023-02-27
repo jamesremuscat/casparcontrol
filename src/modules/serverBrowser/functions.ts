@@ -7,7 +7,7 @@ export interface PathHierarchy {
   items: AugmentedMediaItem[]
 }
 
-interface AugmentedMediaItem extends MediaItem {
+export interface AugmentedMediaItem extends MediaItem {
   localName: string
 }
 

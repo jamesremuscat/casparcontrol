@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import { AiOutlineFolder, AiOutlineFolderOpen } from 'react-icons/ai';
 
 import { PathHierarchy } from '../functions';
+import { MediaEntry } from './MediaEntry';
 
 interface Props {
   hierarchy: PathHierarchy,
@@ -26,17 +27,22 @@ const Container = styled.div<ContainerProps>`
   }
 `;
 
-const ItemsList = styled.ul``;
+const ItemsList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding-left: 0.25em;
+`;
 
 const HeaderInner = styled.h4`
-  margin: 0.5em;
-  margin-left: 2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.25em;
+  margin-left: 1em;
   position: relative;
   cursor: pointer;
 
   & > svg {
     position: absolute;
-    left: -2em;
+    left: -1.5em;
   }
 `;
 
@@ -54,6 +60,8 @@ const Header = ({ expanded, name, onClick }: HeaderProps) => (
     {name}
   </HeaderInner>
 );
+
+const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 
 export const MediaTree = ({ hierarchy, isRoot, level=0 }: Props) => {
 
@@ -88,9 +96,12 @@ export const MediaTree = ({ hierarchy, isRoot, level=0 }: Props) => {
           expanded && (
             <ItemsList>
               {
-                hierarchy.items.map(
+                hierarchy.items.sort((a, b) => collator.compare(a.localName, b.localName)).map(
                   m => (
-                    <li key={m.clip}>{m.localName}</li>
+                    <MediaEntry
+                      item={m}
+                      key={m.clip}
+                    />
                   )
                 )
               }
