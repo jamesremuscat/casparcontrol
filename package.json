@@ -11,7 +11,8 @@
     }
   },
   "scripts": {
-    "build": "tsc && vite build && electron-builder",
+    "build": "tsc && vite build",
+    "electron-build": "yarn run build && electron-builder",
     "dev": "vite",
     "lint": "eslint src/ electron/",
     "preview": "vite preview",
