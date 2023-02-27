@@ -40,6 +40,10 @@ const HeaderInner = styled.h4`
   position: relative;
   cursor: pointer;
 
+  &:hover {
+    background-color: #E0E0E0;
+  }
+
   & > svg {
     position: absolute;
     left: -1.5em;

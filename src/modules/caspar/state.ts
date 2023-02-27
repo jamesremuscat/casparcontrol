@@ -8,7 +8,15 @@ export interface State {
   connection: CasparCG | null,
 
   media: MediaItem[],
-  refreshMedia: () => void
+  refreshMedia: () => void,
+
+  play: (params: PlayParams) => void
+}
+
+export interface PlayParams {
+  channel: number,
+  layer: number,
+  clip: string
 }
 
 export interface ConnectParams {

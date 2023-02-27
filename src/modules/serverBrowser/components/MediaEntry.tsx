@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 import { AugmentedMediaItem } from '../functions';
-import { MediaType } from '@/modules/caspar';
+import { MediaType, useCaspar } from '@/modules/caspar';
 import { AiOutlinePicture, AiOutlineSound } from 'react-icons/ai';
 import { IoFilmOutline } from 'react-icons/io5';
 
@@ -16,6 +16,14 @@ const Inner = styled.li`
   text-overflow: ellipsis;
 
   margin-bottom: 0.25em;
+
+  padding: 0.125em;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #E0E0E0;
+  }
 
   & > svg {
     margin-right: 0.5em;
@@ -35,8 +43,12 @@ export const MediaEntry = ({ item }: Props) => {
 
   const Icon = TYPE_ICONS[item.type];
 
+  const caspar = useCaspar();
+
   return (
-    <Inner>
+    <Inner
+      onClick={() => caspar.play({ clip: item.clip, channel: 1, layer: 1 })}
+    >
       <Icon
         title={item.type}
       />

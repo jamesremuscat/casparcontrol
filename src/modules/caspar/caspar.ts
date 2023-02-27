@@ -1,6 +1,6 @@
 import { CasparCG } from 'casparcg-connection';
 import { create } from 'zustand';
-import { ConnectParams, State } from './state';
+import { ConnectParams, PlayParams, State } from './state';
 
 
 export const useCaspar = create<State>()(
@@ -39,6 +39,10 @@ export const useCaspar = create<State>()(
           }
         )
       );
+    },
+
+    play: (params: PlayParams) => {
+      get().connection?.play(params);
     }
   })
 );
