@@ -15,10 +15,9 @@
     "dev": "vite",
     "lint": "eslint src/ electron/",
     "preview": "vite preview",
-    "e2e": "npx playwright test"
+    "test": "NODE_ENV=test vitest"
   },
   "devDependencies": {
-    "@playwright/test": "^1.29.2",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/styled-components": "^5.1.26",
@@ -39,7 +38,8 @@
     "vite": "^4.0.4",
     "vite-electron-plugin": "^0.7.4",
     "vite-plugin-babel-macros": "^1.0.6",
-    "vite-plugin-electron-renderer": "^0.11.4"
+    "vite-plugin-electron-renderer": "^0.11.4",
+    "vitest": "^0.29.1"
   },
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
