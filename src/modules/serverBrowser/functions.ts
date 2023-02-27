@@ -4,7 +4,11 @@ import { MediaItem } from '../caspar';
 export interface PathHierarchy {
   name: string,
   children: Record<string, PathHierarchy>,
-  items: MediaItem[]
+  items: AugmentedMediaItem[]
+}
+
+interface AugmentedMediaItem extends MediaItem {
+  localName: string
 }
 
 const splitPath = (p: string) => p.split(path.sep);
@@ -41,7 +45,7 @@ export const createPathHierarchy = (media: MediaItem[]) : PathHierarchy => {
 
       const parentDir = getPath(root, pathParts.slice(0, -1));
 
-      parentDir.items.push(m);
+      parentDir.items.push({ ...m, localName: pathParts.slice(-1)[0] });
     }
   );
 

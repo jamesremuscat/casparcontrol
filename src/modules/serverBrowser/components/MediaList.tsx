@@ -1,6 +1,8 @@
-import { MediaItem, useCaspar } from '@/modules/caspar';
+import { useCaspar } from '@/modules/caspar';
 import { useMemo, useState } from 'react';
 import styled from 'styled-components/macro';
+import { createPathHierarchy, PathHierarchy } from '../functions';
+import { MediaTree } from './MediaTree';
 import { FilterOption, FilterOptions, TypeFilters } from './TypeFilters';
 
 const Container = styled.div`
@@ -24,9 +26,9 @@ export const MediaList = () => {
   const media = useCaspar(state => state.media);
   const [filter, setFilter] = useState<FilterOption>(FilterOptions.ALL);
 
-  const filteredMedia = useMemo<MediaItem[]>(
+  const filteredMediaTree = useMemo<PathHierarchy>(
     () => {
-      return media.filter(filter.filter);
+      return createPathHierarchy(media.filter(filter.filter));
     },
     [filter, media]
   );
@@ -38,15 +40,10 @@ export const MediaList = () => {
         setFilter={setFilter}
       />
       <MediaPane>
-        <ul>
-          {
-            filteredMedia.map(
-              m => (
-                <li key={m.clip}>{m.clip}</li>
-              )
-            )
-          }
-        </ul>
+        <MediaTree
+          hierarchy={filteredMediaTree}
+          isRoot
+        />
       </MediaPane>
     </Container>
   );
