@@ -1,5 +1,5 @@
 import { Input } from '@/components/Input';
-import { useCaspar } from '@/modules/caspar';
+import { MediaItem, useCaspar } from '@/modules/caspar';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components/macro';
 import { shallow } from 'zustand/shallow';
@@ -14,7 +14,11 @@ const Container = styled.div`
   min-height: 0;
 `;
 
-export const ServerBrowser = () => {
+interface Props {
+  onItemClick: (item: MediaItem) => void
+}
+
+export const ServerBrowser = ({ onItemClick }: Props) => {
 
   const [serverAddress, setServerAddress] = useState<string>('');
   const caspar = useCaspar(
@@ -59,7 +63,7 @@ export const ServerBrowser = () => {
       >
         Refresh
       </button>
-      <MediaList />
+      <MediaList onItemClick={onItemClick} />
       {caspar.count} item(s)
     </Container>
   );

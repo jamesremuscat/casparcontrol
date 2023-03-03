@@ -1,4 +1,7 @@
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components/macro';
+import { shallow } from 'zustand/shallow';
+import { MediaItem } from './modules/caspar';
+import { createPlaylistItem, Playlist, usePlaylist } from './modules/playlist';
 import { ServerBrowser } from './modules/serverBrowser';
 import { theme } from './theme';
 
@@ -27,14 +30,23 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
 
+  const playlist = usePlaylist(
+    (state) => ({ add: state.add }),
+    shallow
+  );
+
+  const addItemToPlaylist = (item: MediaItem) => {
+    playlist.add(createPlaylistItem(item));
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <AppContainer>
-        <ServerBrowser />
-        <div>
-          Playlist
-        </div>
+        <ServerBrowser
+          onItemClick={addItemToPlaylist}
+        />
+        <Playlist />
         <div>
           Features
         </div>

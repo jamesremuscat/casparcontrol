@@ -1,11 +1,12 @@
 import styled from 'styled-components/macro';
 import { AugmentedMediaItem } from '../functions';
-import { MediaType, useCaspar } from '@/modules/caspar';
+import { MediaItem, MediaType } from '@/modules/caspar';
 import { AiOutlinePicture, AiOutlineSound } from 'react-icons/ai';
 import { IoFilmOutline } from 'react-icons/io5';
 
 interface Props {
-  item: AugmentedMediaItem
+  item: AugmentedMediaItem,
+  onClick: (item: MediaItem) => void
 }
 
 const Inner = styled.li`
@@ -39,15 +40,13 @@ const TYPE_ICONS = {
   [MediaType.MOVIE]: IoFilmOutline
 };
 
-export const MediaEntry = ({ item }: Props) => {
+export const MediaEntry = ({ item, onClick }: Props) => {
 
   const Icon = TYPE_ICONS[item.type];
 
-  const caspar = useCaspar();
-
   return (
     <Inner
-      onClick={() => caspar.play({ clip: item.clip, channel: 1, layer: 1 })}
+      onClick={() => onClick(item)}
     >
       <Icon
         title={item.type}

@@ -1,4 +1,4 @@
-import { useCaspar } from '@/modules/caspar';
+import { MediaItem, useCaspar } from '@/modules/caspar';
 import { useMemo, useState } from 'react';
 import styled from 'styled-components/macro';
 import { createPathHierarchy, PathHierarchy } from '../functions';
@@ -20,8 +20,12 @@ const MediaPane = styled.div`
   padding: 0.25em;
 `;
 
+interface Props {
+  onItemClick: (item: MediaItem) => void
+}
 
-export const MediaList = () => {
+
+export const MediaList = ({ onItemClick }: Props) => {
 
   const media = useCaspar(state => state.media);
   const [filter, setFilter] = useState<FilterOption>(FilterOptions.ALL);
@@ -43,6 +47,7 @@ export const MediaList = () => {
         <MediaTree
           hierarchy={filteredMediaTree}
           isRoot
+          onItemClick={onItemClick}
         />
       </MediaPane>
     </Container>

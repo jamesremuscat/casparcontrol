@@ -4,11 +4,13 @@ import { AiOutlineFolder, AiOutlineFolderOpen } from 'react-icons/ai';
 
 import { PathHierarchy } from '../functions';
 import { MediaEntry } from './MediaEntry';
+import { MediaItem } from '@/modules/caspar';
 
 interface Props {
   hierarchy: PathHierarchy,
   isRoot?: boolean,
-  level?: number
+  level?: number,
+  onItemClick: (item: MediaItem) => void
 }
 
 interface ContainerProps {
@@ -67,7 +69,7 @@ const Header = ({ expanded, name, onClick }: HeaderProps) => (
 
 const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 
-export const MediaTree = ({ hierarchy, isRoot, level=0 }: Props) => {
+export const MediaTree = ({ hierarchy, isRoot, level=0, onItemClick }: Props) => {
 
   const [ expanded, setExpanded ] = useState<boolean>(!!isRoot);
 
@@ -91,6 +93,7 @@ export const MediaTree = ({ hierarchy, isRoot, level=0 }: Props) => {
                   hierarchy={h}
                   key={h.name}
                   level={level + 1}
+                  onItemClick={onItemClick}
                 />
               )
             )
@@ -105,6 +108,7 @@ export const MediaTree = ({ hierarchy, isRoot, level=0 }: Props) => {
                     <MediaEntry
                       item={m}
                       key={m.clip}
+                      onClick={onItemClick}
                     />
                   )
                 )
