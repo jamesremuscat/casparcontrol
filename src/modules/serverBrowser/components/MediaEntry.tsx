@@ -1,8 +1,6 @@
 import styled from 'styled-components/macro';
 import { AugmentedMediaItem } from '../functions';
-import { MediaItem, MediaType } from '@/modules/caspar';
-import { AiOutlinePicture, AiOutlineSound } from 'react-icons/ai';
-import { IoFilmOutline } from 'react-icons/io5';
+import { MediaItem, TYPE_ICONS } from '@/modules/caspar';
 
 interface Props {
   item: AugmentedMediaItem,
@@ -34,11 +32,7 @@ const Inner = styled.li`
   }
 `;
 
-const TYPE_ICONS = {
-  [MediaType.AUDIO]: AiOutlineSound,
-  [MediaType.STILL]: AiOutlinePicture,
-  [MediaType.MOVIE]: IoFilmOutline
-};
+
 
 export const MediaEntry = ({ item, onClick }: Props) => {
 

@@ -10,7 +10,7 @@ console.log('[App.tsx]', `Hello world from Electron ${process.versions.electron}
 
 const AppContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
 
   height: 100vh;
   width: 100vw;
